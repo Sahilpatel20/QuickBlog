@@ -41,7 +41,7 @@ const Footer = () => {
 
             {/* Bottom Section */}
             <p className='py-4 text-center text-sm md:text-base text-gray-500'>
-                Copyright 2025 © <span className='text-primary font-medium'>QuickBlog</span> GreatStack – All Rights Reserved.
+                Copyright 2025 © <span className='text-primary font-medium'>QuickBlog</span> Sahil Patel – All Rights Reserved.
             </p>
         </div>
     )

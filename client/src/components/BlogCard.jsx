@@ -5,18 +5,47 @@ const BlogCard = ({ blog }) => {
     const { title, description, category, image, _id } = blog
     const navigate = useNavigate()
 
+    const handleClick = () => {
+        console.log('BlogCard clicked:', _id)
+        navigate(`/blog/${_id}`)
+    }
+
     return (
         <div
-            onClick={() => navigate(`/blog/${_id}`)}
-            className='w-full rounded-lg overflow-hidden shadow hover:scale-102 hover:shadow-primary/25 duration-300 cursor-pointer'
+            onClick={handleClick}
+            className='blog-card relative w-full bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg hover:scale-[1.02] transition-all duration-300 cursor-pointer border border-gray-100 z-10 pointer-events-auto'
         >
-            <img src={image} alt='' className='aspect-video' />
-            <span className='ml-5 mt-4 px-3 py-1 inline-block bg-primary/20 rounded-full text-primary text-xs'>
-                {category}
-            </span>
+            <div className='w-full h-48 overflow-hidden'>
+                <img
+                    src={image}
+                    alt={title}
+                    className='w-full h-full object-cover transition-transform duration-300 hover:scale-105'
+                    style={{ pointerEvents: 'none' }}  // ensures click registered on parent
+                />
+            </div>
+
             <div className='p-5'>
-                <h5 className='mb-2 font-medium text-gray-900'>{title}</h5>
-                <p className='mb-3 text-xs text-gray-600' dangerouslySetInnerHTML={{ "__html": description.slice(0, 80) }}></p>
+                <span
+                    className={`inline-block px-3 py-1 text-xs font-medium rounded-full ${{
+                            Technology: 'bg-purple-100 text-purple-700',
+                            Startup: 'bg-pink-100 text-pink-700',
+                            Lifestyle: 'bg-blue-100 text-blue-700',
+                            Finance: 'bg-yellow-100 text-yellow-700',
+                        }[category] || 'bg-gray-100 text-gray-700'
+                        }`}
+                >
+                    {category}
+                </span>
+
+                <h5 className='mt-3 mb-2 font-semibold text-gray-900 line-clamp-2'>
+                    {title}
+                </h5>
+                <p
+                    className='text-xs text-gray-600 line-clamp-3'
+                    dangerouslySetInnerHTML={{
+                        __html: description?.slice(0, 100) + (description.length > 100 ? '...' : ''),
+                    }}
+                ></p>
             </div>
         </div>
     )
